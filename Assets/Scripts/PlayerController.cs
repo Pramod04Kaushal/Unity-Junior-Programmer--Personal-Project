@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
+    public float zbound = 14.0f;
 
     private Rigidbody playerRb;
     private Vector2 moveInput;
@@ -24,6 +25,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveInput = moveAction.ReadValue<Vector2>();
+
+        if (transform.position.z > zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zbound);
+        }
+
+        if(transform.position.z < -zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zbound);
+        }
     }
 
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
