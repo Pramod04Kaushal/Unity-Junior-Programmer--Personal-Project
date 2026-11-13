@@ -26,25 +26,38 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = moveAction.ReadValue<Vector2>();
 
-        if (transform.position.z > zbound)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, zbound);
-        }
+        playerBoundry();
 
-        if(transform.position.z < -zbound)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -zbound);
-        }
     }
 
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     private void FixedUpdate()
+    {
+        MovePlayer();
+
+
+    }
+
+    // move player in here
+    void MovePlayer()
     {
         float horizontalInput = moveInput.x;
         float verticalInput = moveInput.y;
 
         Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
         playerRb.AddForce(moveDirection * speed);
-      
+    }
+
+    void playerBoundry()
+    {
+        if (transform.position.z > zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zbound);
+        }
+
+        if (transform.position.z < -zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zbound);
+        }
     }
 }
